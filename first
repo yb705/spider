@@ -1,18 +1,28 @@
 from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
+
 html = urlopen("https://bj.58.com/job/?key=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90&classpolicy=strategy,job_A&final=1&jump=1")
-bsObj = BeautifulSoup(html)
-nameList = bsObj.findAll("p", {"class":"job_salary"})
-for name in nameList:
-  print(name.get_text())
+
+bsObj = BeautifulSoup(html,"lxml")
+
+nameList = bsObj.findAll("div", {"class":"job_name clearfix"})
+
 salary= bsObj.findAll("p",{"class":"job_salary"})
-for name in salary:
-  print(name.get_text())
+
 salary_1=[]
+
 for a in salary:
-  salary_1.append(a.get_text())
+
+	salary_1.append(a.get_text())
+
 name_1=[]
+
 for a in nameList:
-  name_1.append(a.get_text())
+
+	name_1.append(a.get_text())
+
 shujufenxi=zip(name_1,salary_1)
-dict(shujufenxi)
+
+a=dict(shujufenxi)
+print(a)
